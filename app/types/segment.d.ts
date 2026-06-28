@@ -3,8 +3,8 @@ export {}
 declare global {
 	interface Segment {
     id: number,
-    start: Timecode,
-    end: Timecode,
+    start: number,
+    end: number,
     label: string,
     notes: string,
   }
