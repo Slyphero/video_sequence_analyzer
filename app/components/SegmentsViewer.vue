@@ -1,8 +1,35 @@
 <template>
 	<div class="bg-yellow-500">
-    Segments Viewer
+    <h2 class="font-bold">Segments Viewer</h2>
+
+    <h3>Créer un segment</h3>
+    <button 
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      [
+    </button>
+    <button 
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      ]
+    </button>
+
+    <p>Début du segment : </p>
+    <p>Fin du segment : </p>
+
+    <form>
+      <label>Nom du segment : </label>
+      <input type="text" placeholder="Nom du segment" />
+      <br />
+      <input 
+        type="submit" 
+        value="Créer segment" 
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
+      />
+    </form>
   </div>
 </template>
 
 <script setup lang="ts">
+const video = ref<HTMLVideoElement | null>(null)
 </script>

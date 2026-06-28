@@ -1,6 +1,7 @@
 export const useVideoMetadata = (videoRef: Ref<HTMLVideoElement | null>) => {
-    const duration = ref<number | null>(null)
+  const duration = ref<number | null>(null)
   const ready = ref(false)
+  const current = ref<number | null>(null)
 
   function waitForMetadata(el: HTMLVideoElement) {
     return new Promise<void>((resolve, reject) => {
@@ -36,12 +37,19 @@ export const useVideoMetadata = (videoRef: Ref<HTMLVideoElement | null>) => {
     await waitForMetadata(el)
 
     duration.value = el.duration
+    current.value = el.currentTime
     ready.value = true
+  }
+
+  const updateCurrentTime = (time: number) => {
+    current.value = time
   }
 
   return {
     duration,
     ready,
+    current,
     load,
+    updateCurrentTime
   }
 }

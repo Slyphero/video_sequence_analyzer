@@ -1,6 +1,6 @@
 <template>
   <div class="col-span-3 bg-blue-500">
-    Timeline
+    <h2 class="font-bold">Timeline</h2>
   </div>
 </template>
 
