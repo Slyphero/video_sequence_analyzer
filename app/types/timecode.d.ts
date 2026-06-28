@@ -1,0 +1,9 @@
+export {}
+
+declare global {
+  interface Timecode {
+    hours: number,
+    minutes: number,
+    seconds: number,
+  }
+}
