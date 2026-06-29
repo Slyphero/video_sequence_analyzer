@@ -3,6 +3,7 @@
     <h2 class="font-bold">Segments Viewer</h2>
 
     <h3>Créer un segment</h3>
+    <p>Timecode actuel : {{ secondsToString(current) }}</p>
     <button 
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
     >
@@ -27,9 +28,18 @@
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
       />
     </form>
+
+    <h2 class="font-bold">Segments crées</h2>
+    <ul v-for="segment in segments">
+      <li>
+        <button>{{ segment.label }}</button>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-const video = ref<HTMLVideoElement | null>(null)
+const { secondsToString } = useTimecode()
+const { duration, current } = useVideoMetadata()
+const { segments } = useSegment()
 </script>

@@ -39,10 +39,15 @@ export const useSegment = () => {
   }
 
   const removeSegment = (index: number) => {
+    const i = segments.value.findIndex(s => s.index === index)
+    if (i === -1) return
+    segments.value.splice(i, 1)
   }
 
   const updateSegmentNotes = (index: number, label: string, notes: string) => {
   }
+
+  
 
   return {
     segments,
