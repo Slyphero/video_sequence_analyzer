@@ -8,7 +8,7 @@
 
       <div 
         v-for="segment in segments" 
-        :key="segment.index"
+        :key="segment.id"
         class="absolute inset-2 bg-green-500 rounded" 
         :style="{left: segment.start + '%', width: (segment.end - segment.start) + '%'}"
       /> 

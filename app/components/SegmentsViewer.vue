@@ -40,9 +40,9 @@
     <h2 class="font-bold mt-4">Segments créés</h2>
 
     <ul>
-      <li v-for="segment in segments" :key="segment.index">
+      <li v-for="segment in segments" :key="segment.id">
         <button class="bg-blue-500 text-white px-4 py-2 rounded">{{ segment.label }}</button>
-        <button class="bg-red-500 text-white px-4 py-2 rounded" @click="remove(segment.index)">Supprimer</button>
+        <button class="bg-red-500 text-white px-4 py-2 rounded" @click="remove(segment.id)">Supprimer</button>
       </li>
     </ul>
   </div>
@@ -69,7 +69,7 @@ const createSegment = () => {
   label.value = ""
 }
 
-const remove = (index: number) => {
-  removeSegment(index)
+const remove = (id: number) => {
+  removeSegment(id)
 }
 </script>

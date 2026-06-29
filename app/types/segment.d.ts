@@ -2,7 +2,7 @@ export {}
 
 declare global {
 	interface Segment {
-    index: number,
+    id: string,
     start: number,
     end: number,
     label: string,
