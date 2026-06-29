@@ -19,15 +19,35 @@
 <script setup lang="ts">
 const video = ref<HTMLVideoElement | null>(null)
 
-const { duration, current, load, updateCurrentTime } = useVideoMetadata(video)
-const { secondsToTimecode, secondsToString } = useTimecode()
+const { secondsToString } = useTimecode()
+
+const {
+  duration,
+  current,
+  setDuration,
+  setCurrent,
+  setReady
+} = useVideoMetadata()
 
 onMounted(() => {
-  load()
+  const el = video.value
+  if (!el) return
+
+  const handle = () => {
+    setDuration(el.duration)
+    setReady(true)
+  }
+
+  if (el.readyState >= 1 && isFinite(el.duration)) {
+    handle()
+    return
+  }
+
+  el.addEventListener("loadedmetadata", handle, { once: true })
 })
 
 const onTimeUpdate = (e: Event) => {
   const el = e.target as HTMLVideoElement
-  updateCurrentTime(el.currentTime)
+  setCurrent(el.currentTime)
 }
 </script>

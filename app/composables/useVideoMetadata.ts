@@ -1,55 +1,26 @@
-export const useVideoMetadata = (videoRef: Ref<HTMLVideoElement | null>) => {
-  const duration = ref<number | null>(null)
-  const ready = ref(false)
-  const current = ref<number | null>(null)
+export const useVideoMetadata = () => {
+  const duration = useState<number | null>("video-duration", () => null)
+  const current = useState<number | null>("video-current", () => null)
+  const ready = useState<boolean>("video-ready", () => false)
 
-  function waitForMetadata(el: HTMLVideoElement) {
-    return new Promise<void>((resolve, reject) => {
-      if (el.readyState >= 1 && isFinite(el.duration)) {
-        resolve()
-        return
-      }
-
-      const onLoaded = () => {
-        cleanup()
-        resolve()
-      }
-
-      const onError = () => {
-        cleanup()
-        reject()
-      }
-
-      const cleanup = () => {
-        el.removeEventListener("loadedmetadata", onLoaded)
-        el.removeEventListener("error", onError)
-      }
-
-      el.addEventListener("loadedmetadata", onLoaded, { once: true })
-      el.addEventListener("error", onError)
-    })
+  const setDuration = (v: number) => {
+    duration.value = v
   }
 
-  const load = async () => {
-    const el = videoRef.value
-    if (!el) return
-
-    await waitForMetadata(el)
-
-    duration.value = el.duration
-    current.value = el.currentTime
-    ready.value = true
+  const setCurrent = (v: number) => {
+    current.value = v
   }
 
-  const updateCurrentTime = (time: number) => {
-    current.value = time
+  const setReady = (v: boolean) => {
+    ready.value = v
   }
 
   return {
     duration,
-    ready,
     current,
-    load,
-    updateCurrentTime
+    ready,
+    setDuration,
+    setCurrent,
+    setReady
   }
 }
