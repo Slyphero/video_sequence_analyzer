@@ -9,17 +9,13 @@
     <p v-if="duration !== null">
       Durée : {{ secondsToString(duration) }}
     </p>
-
-    <p v-if="current !== null">
-      Timecode actuel : {{ secondsToString(current) }}
-    </p>
   </div>
 </template>
 
 <script setup lang="ts">
 const video = ref<HTMLVideoElement | null>(null)
 
-const { secondsToString } = useTimecode()
+import { secondsToString } from '~/utils/timecode'
 
 const {
   duration,

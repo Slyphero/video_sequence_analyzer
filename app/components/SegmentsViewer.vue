@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-const { secondsToString } = useTimecode()
+import { secondsToString } from '~/utils/timecode'
 const { duration, current } = useVideoMetadata()
 const { segments, addSegment, removeSegment } = useSegment()
 
