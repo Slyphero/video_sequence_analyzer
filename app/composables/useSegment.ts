@@ -1,5 +1,6 @@
 export const useSegment = () => {
-  const segments = ref<Segment[]>([])
+  const { duration } = useVideoMetadata()
+  const segments = useState<Segment[]>("segments", () => [])  
   const index = ref<number>(0)
 
   const isOverlaping = (start: number, end: number): boolean => {
@@ -10,14 +11,14 @@ export const useSegment = () => {
     return false
   }
 
-  const isSegmentValid = (start: number, end: number, duration: number): boolean => {
-    if (start >= end || start < 0 || end < 0 || end > duration || isOverlaping(start, end)) return false
+  const isSegmentValid = (start: number, end: number): boolean => {
+    if (start >= end || start < 0 || end < 0 || end > duration.value || isOverlaping(start, end)) return false
     
     return true
   }
 
-  const addSegment = (start: number, end: number, label: string, notes: string, duration: number) => {
-    if (!isSegmentValid(start, end, duration)) return
+  const addSegment = (start: number, end: number, label: string, notes: string) => {
+    if (!isSegmentValid(start, end, duration.value)) return
 
     const segment: Segment = {
       index: index.value,
@@ -47,7 +48,7 @@ export const useSegment = () => {
   const updateSegmentNotes = (index: number, label: string, notes: string) => {
   }
 
-  
+
 
   return {
     segments,

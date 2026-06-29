@@ -6,9 +6,16 @@
       <!-- track -->
       <div class="absolute inset-0 bg-zinc-800 rounded" />
 
+      <div 
+        v-for="segment in segments" 
+        :key="segment.index"
+        class="absolute inset-2 bg-green-500 rounded" 
+        :style="{left: segment.start + '%', width: (segment.end - segment.start) + '%'}"
+      /> 
+
       <!-- playhead -->
       <div
-        class="absolute top-1/2 h-8 w-[2px] bg-red-500 -translate-x-1/2 -translate-y-1/2"
+        class="absolute top-1/2 h-8 w-[4px] bg-red-500 -translate-x-1/2 -translate-y-1/2"
         :style="{ left: playheadPosition + '%' }"
       />
     </div>

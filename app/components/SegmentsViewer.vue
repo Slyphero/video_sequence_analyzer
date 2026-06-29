@@ -1,38 +1,48 @@
 <template>
-	<div class="bg-yellow-500">
+  <div class="bg-yellow-500">
     <h2 class="font-bold">Segments Viewer</h2>
 
     <h3>Créer un segment</h3>
+
     <p>Timecode actuel : {{ secondsToString(current) }}</p>
-    <button 
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+
+    <button
+      class="bg-blue-500 text-white px-4 py-2 rounded"
+      @click="setStart"
     >
       [
     </button>
-    <button 
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+
+    <button
+      class="bg-blue-500 text-white px-4 py-2 rounded"
+      @click="setEnd"
     >
       ]
     </button>
 
-    <p>Début du segment : </p>
-    <p>Fin du segment : </p>
+    <p>Début : {{ secondsToString(start) }}</p>
+    <p>Fin : {{ secondsToString(end) }}</p>
 
-    <form>
-      <label>Nom du segment : </label>
-      <input type="text" placeholder="Nom du segment" />
-      <br />
-      <input 
-        type="submit" 
-        value="Créer segment" 
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
-      />
-    </form>
+    <input
+      v-model="label"
+      type="text"
+      placeholder="Nom du segment"
+      class="border px-2 py-1 mt-2"
+    />
 
-    <h2 class="font-bold">Segments crées</h2>
-    <ul v-for="segment in segments">
-      <li>
-        <button>{{ segment.label }}</button>
+    <button
+      class="bg-green-500 text-white px-4 py-2 mt-2"
+      @click="createSegment"
+    >
+      Créer segment
+    </button>
+
+    <h2 class="font-bold mt-4">Segments créés</h2>
+
+    <ul>
+      <li v-for="segment in segments" :key="segment.index">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded">{{ segment.label }}</button>
+        <button class="bg-red-500 text-white px-4 py-2 rounded" @click="remove(segment.index)">Supprimer</button>
       </li>
     </ul>
   </div>
@@ -41,5 +51,25 @@
 <script setup lang="ts">
 const { secondsToString } = useTimecode()
 const { duration, current } = useVideoMetadata()
-const { segments } = useSegment()
+const { segments, addSegment, removeSegment } = useSegment()
+
+const label = ref("")
+const start = ref<number | null>(null)
+const end = ref<number | null>(null)
+
+const setStart = () => start.value = current.value ?? 0
+const setEnd = () => end.value = current.value ?? 0
+
+const createSegment = () => {
+  if (start.value == null || end.value == null || !label.value) return
+  
+  addSegment(start.value, end.value, label.value, "")
+  start.value = null
+  end.value = null
+  label.value = ""
+}
+
+const remove = (index: number) => {
+  removeSegment(index)
+}
 </script>
