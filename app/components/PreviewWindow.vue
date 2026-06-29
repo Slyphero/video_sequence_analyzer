@@ -5,10 +5,6 @@
     <video ref="video" @timeupdate="onTimeUpdate" controls muted>
       <source src="/videos/witch_hat_atelier_op1.mp4" type="video/mp4" />
     </video>
-
-    <p v-if="duration !== null">
-      Durée : {{ secondsToString(duration) }}
-    </p>
   </div>
 </template>
 
@@ -46,4 +42,5 @@ const onTimeUpdate = (e: Event) => {
   const el = e.target as HTMLVideoElement
   setCurrent(el.currentTime)
 }
+
 </script>

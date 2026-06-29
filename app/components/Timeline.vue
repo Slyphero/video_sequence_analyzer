@@ -9,9 +9,12 @@
       <div 
         v-for="segment in segments" 
         :key="segment.id"
-        class="absolute inset-2 bg-green-500 rounded" 
+        class="absolute inset-y-2 bg-green-500 rounded hover:bg-red-500" 
         :style="{left: segment.start + '%', width: (segment.end - segment.start) + '%'}"
-      /> 
+        @click="removeSegment(segment.id)"
+      >
+        <p class="align-center text-center overflow-auto">{{ segment.label }}</p>
+      </div> 
 
       <!-- playhead -->
       <div
@@ -25,7 +28,7 @@
 <script lang="ts" setup>
 const { duration, current } = useVideoMetadata()
 
-const { segments } = useSegment()
+const { segments, removeSegment } = useSegment()
 
 const playheadPosition = computed(() => {
   if (!duration.value) return 0

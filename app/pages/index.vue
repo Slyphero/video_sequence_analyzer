@@ -1,17 +1,9 @@
 <template>
-  <div class="grid grid-cols-2 gap-5">
-
-    <!-- Import and export -->
-    <div class=bg-red-500>
-      Import Div
-    </div>
-
+  <div class="grid grid-cols-2 gap-1">
+    <FileManager />
     <PreviewWindow />
     <Timeline />
-    <SegmentsViewer />
+    <SegmentCreator />
     <Notes />
   </div>
 </template>
-
-<script setup lang="ts">
-</script>

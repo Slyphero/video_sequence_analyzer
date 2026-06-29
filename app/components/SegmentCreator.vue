@@ -1,8 +1,6 @@
 <template>
   <div class="bg-yellow-500">
-    <h2 class="font-bold">Segments Viewer</h2>
-
-    <h3>Créer un segment</h3>
+    <h2 class="font-bold">Créer un segment</h2>
 
     <p>Timecode actuel : {{ secondsToString(current) }}</p>
 
@@ -36,15 +34,6 @@
     >
       Créer segment
     </button>
-
-    <h2 class="font-bold mt-4">Segments créés</h2>
-
-    <ul>
-      <li v-for="segment in segments" :key="segment.id">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded">{{ segment.label }}</button>
-        <button class="bg-red-500 text-white px-4 py-2 rounded" @click="remove(segment.id)">Supprimer</button>
-      </li>
-    </ul>
   </div>
 </template>
 
