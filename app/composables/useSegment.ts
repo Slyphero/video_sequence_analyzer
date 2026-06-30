@@ -1,6 +1,5 @@
 export const useSegment = () => {
-  const { duration } = useVideoMetadata()
-  const selectedSegmentId = useState<string | null>("selected-segment-id", () => null)
+  const { current, duration } = useVideoMetadata()
   const segments = useState<Segment[]>("segments", () => [])  
 
   const isOverlaping = (start: number, end: number): boolean => {
@@ -45,7 +44,7 @@ export const useSegment = () => {
     segments.value.splice(i, 1)
   }
 
-  const updateSegmentNotes = (id: string, label: string, notes: string) => {
+  const updateSegment = (id: string, label: string, notes: string) => {
     const segment = segments.value.find(s => s.id === id)
     if (!segment) return
 
@@ -53,17 +52,23 @@ export const useSegment = () => {
     segment.notes = notes
   }
 
-  const setSelectedSegment = (id: string | null) => selectedSegmentId.value = id
-
-  const selectedSegment = computed(() => segments.value.find(s => s.id === selectedSegmentId.value) ?? null)
+  const selectedSegment = computed(() => {
+    if (current.value == null) return null 
+    
+    return (
+      segments.value.find(
+        s => 
+          current.value! >= s.start && 
+          current.value! <= s.end
+      ) ?? null
+    )
+  })
 
   return {
     segments,
     selectedSegment,
-    selectedSegmentId,
-    setSelectedSegment,
     addSegment,
     removeSegment,
-    updateSegmentNotes
+    updateSegment,
   }
 }
