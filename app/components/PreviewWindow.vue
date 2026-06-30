@@ -2,9 +2,7 @@
   <div class="bg-green-500">
     <h2 class="font-bold">Preview Window</h2>
 
-    <video ref="video" @timeupdate="onTimeUpdate" controls muted>
-      <source src="/videos/witch_hat_atelier_op1.mp4" type="video/mp4" />
-    </video>
+    <video ref="video" :src="videoSrc" @timeupdate="onTimeUpdate" controls muted />
   </div>
 </template>
 
@@ -16,9 +14,10 @@ import { secondsToString } from '~/utils/timecode'
 const {
   duration,
   current,
+  videoSrc,
   setDuration,
   setCurrent,
-  setReady
+  setReady,
 } = useVideoMetadata()
 
 onMounted(() => {

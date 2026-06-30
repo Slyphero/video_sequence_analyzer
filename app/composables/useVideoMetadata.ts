@@ -1,5 +1,4 @@
 export const useVideoMetadata = () => {
-  const videoFile = useState<File | null>("video-file", () => null)
   const videoSrc = useState<string | null>("video-src", () => null)
 
   const duration = useState<number | null>("video-duration", () => null)
@@ -18,12 +17,22 @@ export const useVideoMetadata = () => {
     ready.value = v
   }
 
+  const loadVideoFile = (file: File) => {
+    if (videoSrc.value) {
+      URL.revokeObjectURL(videoSrc.value)
+    }
+
+    videoSrc.value = URL.createObjectURL(file)
+  }
+
   return {
     duration,
     current,
     ready,
+    videoSrc,
     setDuration,
     setCurrent,
-    setReady
+    setReady,
+    loadVideoFile,
   }
 }
