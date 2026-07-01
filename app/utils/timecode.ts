@@ -6,7 +6,7 @@ export const secondsToTimecode = (seconds: number): Timecode => {
   }
 }
 
-export  const secondsToString = (seconds: number): string => {
+export const secondsToString = (seconds: number): string => {
   const timecode = secondsToTimecode(seconds)
   return `${timecode.hours.toString().padStart(2, '0')}:${timecode.minutes.toString().padStart(2, '0')}:${timecode.seconds.toString().padStart(2, '0')}`
 }

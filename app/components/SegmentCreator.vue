@@ -58,7 +58,4 @@ const createSegment = () => {
   label.value = ""
 }
 
-const remove = (id: number) => {
-  removeSegment(id)
-}
 </script>
